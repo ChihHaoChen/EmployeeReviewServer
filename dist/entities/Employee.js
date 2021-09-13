@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Employee = void 0;
 const typeorm_1 = require("typeorm");
 const type_graphql_1 = require("type-graphql");
+const Review_1 = require("./Review");
 let Employee = class Employee extends typeorm_1.BaseEntity {
     constructor() {
         super(...arguments);
@@ -38,6 +39,10 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'text' }),
     __metadata("design:type", String)
 ], Employee.prototype, "name", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => Review_1.Review, (review) => review.reviewedEmployee, { eager: true }),
+    __metadata("design:type", Array)
+], Employee.prototype, "reviews", void 0);
 Employee = __decorate([
     (0, type_graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)()

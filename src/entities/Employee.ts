@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, BaseEntity } from 'typeorm'
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, BaseEntity, OneToMany } from 'typeorm'
 import { Field, ObjectType } from 'type-graphql';
+import { Review } from './Review'
 
 @ObjectType()
 @Entity()
@@ -19,4 +20,7 @@ export class Employee extends BaseEntity {
   @Field()
   @Column({ type: 'text'})
   name!: string;
+
+  @OneToMany(() => Review, (review) => review.reviewedEmployee, { eager: true })
+  reviews: Review[]
 }

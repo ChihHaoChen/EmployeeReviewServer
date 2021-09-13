@@ -23,10 +23,6 @@ __decorate([
 ], SubmitReviewInput.prototype, "reviewedBy", void 0);
 __decorate([
     (0, type_graphql_1.Field)(),
-    __metadata("design:type", Number)
-], SubmitReviewInput.prototype, "reviewedEmployee", void 0);
-__decorate([
-    (0, type_graphql_1.Field)(),
     __metadata("design:type", String)
 ], SubmitReviewInput.prototype, "feedback", void 0);
 __decorate([
@@ -66,8 +62,8 @@ let ReviewResolver = class ReviewResolver {
     async reviews() {
         return await Review_1.Review.find();
     }
-    async submitFeedback({ reviewedBy, reviewedEmployee, feedback, rating }) {
-        const draftReview = await Review_1.Review.findOne({ where: { reviewedBy, reviewedEmployee } });
+    async submitFeedback({ reviewedBy, feedback, rating }) {
+        const draftReview = await Review_1.Review.findOne({ where: { reviewedBy } });
         if (!draftReview) {
             return {
                 errors: [{
@@ -82,7 +78,6 @@ let ReviewResolver = class ReviewResolver {
             isCompleted: true
         });
         await draftReview.save();
-        console.log('draft =>', draftReview);
         return { draftReview };
     }
 };

@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EmployeeResolver = void 0;
 const Employee_1 = require("../entities/Employee");
 const type_graphql_1 = require("type-graphql");
-const Review_1 = require("../entities/Review");
 let EmployeeResolver = class EmployeeResolver {
     async employees() {
         return await Employee_1.Employee.find();
@@ -39,20 +38,9 @@ let EmployeeResolver = class EmployeeResolver {
         return updatedEmployee;
     }
     async deleteEmployee(id) {
+        const deletedEmployee = await Employee_1.Employee.findOne(id);
         await Employee_1.Employee.delete(id);
-        return true;
-    }
-    async assignReview(revieweeId, reviewerId) {
-        const newReviewAssignment = Review_1.Review.create({
-            reviewedBy: reviewerId,
-            reviewedEmployee: revieweeId,
-        });
-        Object.assign(newReviewAssignment, {
-            feedback: {},
-            rating: 0
-        });
-        await newReviewAssignment.save();
-        return newReviewAssignment;
+        return deletedEmployee;
     }
 };
 __decorate([
@@ -84,20 +72,12 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], EmployeeResolver.prototype, "updateEmployee", null);
 __decorate([
-    (0, type_graphql_1.Mutation)(() => Boolean),
+    (0, type_graphql_1.Mutation)(() => Employee_1.Employee),
     __param(0, (0, type_graphql_1.Arg)('id', () => type_graphql_1.Int)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], EmployeeResolver.prototype, "deleteEmployee", null);
-__decorate([
-    (0, type_graphql_1.Mutation)(() => Review_1.Review),
-    __param(0, (0, type_graphql_1.Arg)('reviewee', () => type_graphql_1.Int)),
-    __param(1, (0, type_graphql_1.Arg)('reviewer', () => type_graphql_1.Int)),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Number]),
-    __metadata("design:returntype", Promise)
-], EmployeeResolver.prototype, "assignReview", null);
 EmployeeResolver = __decorate([
     (0, type_graphql_1.Resolver)()
 ], EmployeeResolver);

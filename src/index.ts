@@ -13,9 +13,9 @@ import { Employee } from './entities/Employee'
 const main = async () => {
   await createConnection({
     type: 'postgres',
-    database: 'employeesReviews',
-    username: 'postgres',
-    password: 'postgres',
+    database: 'employeeReviews',
+    username: 'jenson',
+    password: '0716',
     logging: true,
     synchronize: true,
     entities: [Employee, Review],

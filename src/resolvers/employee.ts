@@ -1,6 +1,6 @@
 import { Employee } from "../entities/Employee";
 import { Arg, Int, Mutation, Query, Resolver } from "type-graphql";
-import { Review } from "../entities/Review";
+// import { Review } from "../entities/Review";
 
 @Resolver()
 export class EmployeeResolver  {
@@ -18,7 +18,7 @@ export class EmployeeResolver  {
 
   // Creates a new employee
   @Mutation(() => Employee)
-  async createEmployee(@Arg('name') name: string): Promise < Employee > {
+  async createEmployee(@Arg('name') name: string): Promise <Employee> {
     const newEmployee = Employee.create({ name }).save()
     return newEmployee
   }
@@ -44,33 +44,37 @@ export class EmployeeResolver  {
   }
 
   // Updates a existent employee
-  @Mutation(() => Boolean)
+  @Mutation(() => Employee)
   async deleteEmployee(
     @Arg('id', () => Int) id: number,
-  ): Promise<boolean> {
+  ): Promise<Employee | undefined> {
+    const deletedEmployee = await Employee.findOne(id)
+    
     await Employee.delete(id)  
     
-    return true
+    return deletedEmployee
   }
 
-  @Mutation(() => Review)
-  async assignReview(
-    @Arg('reviewee', () => Int) revieweeId: number,
-    @Arg('reviewer', () => Int) reviewerId: number,
+  // @Mutation(() => Review)
+  // async assignReview(
+  //   @Arg('reviewee', () => Int) revieweeId: number,
+  //   @Arg('reviewer', () => Int) reviewerId: number,
     
-  ): Promise<Review> {
-    const newReviewAssignment = Review.create({
-      reviewedBy: reviewerId,
-      reviewedEmployee: revieweeId,
+  // ): Promise<Review> {
+  //   const reviewer = await Employee.findOne(reviewerId)
+  //   const reviewee = await Employee.findOne(revieweeId)
+  //   const newReviewAssignment = Review.create({
+  //     reviewedBy: reviewer,
+  //     reviewedEmployee: reviewee,
       
-    })
-    Object.assign(newReviewAssignment, {
-      feedback: {},
-      rating: 0
-    })
-    await newReviewAssignment.save()
+  //   })
+  //   Object.assign(newReviewAssignment, {
+  //     feedback: {},
+  //     rating: 0
+  //   })
+  //   await newReviewAssignment.save()
 
-    return newReviewAssignment
+  //   return newReviewAssignment
 
-  }
+  // }
 }

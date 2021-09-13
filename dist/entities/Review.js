@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Review = void 0;
 const typeorm_1 = require("typeorm");
 const type_graphql_1 = require("type-graphql");
+const Employee_1 = require("./Employee");
 let Review = class Review extends typeorm_1.BaseEntity {
     constructor() {
         super(...arguments);
@@ -42,11 +43,6 @@ __decorate([
     (0, type_graphql_1.Field)(),
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
-], Review.prototype, "reviewedEmployee", void 0);
-__decorate([
-    (0, type_graphql_1.Field)(),
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
 ], Review.prototype, "rating", void 0);
 __decorate([
     (0, type_graphql_1.Field)(),
@@ -58,6 +54,10 @@ __decorate([
     (0, typeorm_1.Column)({ default: false }),
     __metadata("design:type", Boolean)
 ], Review.prototype, "isCompleted", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => Employee_1.Employee, (employee) => employee.reviews),
+    __metadata("design:type", Employee_1.Employee)
+], Review.prototype, "reviewedEmployee", void 0);
 Review = __decorate([
     (0, type_graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)()

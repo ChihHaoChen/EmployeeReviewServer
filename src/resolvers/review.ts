@@ -1,13 +1,12 @@
 import { Review } from "../entities/Review";
 import { Arg, Field, InputType, Mutation, ObjectType, Query, Resolver } from "type-graphql";
+// import { Employee } from "src/entities/Employee"
 
 
 @InputType()
 class SubmitReviewInput {
   @Field()
   reviewedBy: number
-  @Field()
-  reviewedEmployee: number
   @Field()
   feedback: string
   @Field()
@@ -41,11 +40,11 @@ export class ReviewResolver  {
 
   @Mutation(() => ReviewResponse)
   async submitFeedback(
-    @Arg("submitInput") { reviewedBy, reviewedEmployee, feedback, rating }: SubmitReviewInput,
+    @Arg("submitInput") { reviewedBy, feedback, rating }: SubmitReviewInput,
   ): Promise<ReviewResponse> {
   
     
-    const draftReview = await Review.findOne({ where: {reviewedBy, reviewedEmployee} })
+    const draftReview = await Review.findOne({ where: {reviewedBy} })
     if (!draftReview) {
       return {
         errors: [{
@@ -62,7 +61,6 @@ export class ReviewResolver  {
     }) 
     await draftReview.save()
    
-    console.log('draft =>', draftReview)
     return { draftReview } as ReviewResponse
   }
 }
