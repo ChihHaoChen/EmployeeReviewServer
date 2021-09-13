@@ -9,6 +9,13 @@ export class Employee extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
+  @Field()
+  @Column({ type: 'text'})
+  name!: string;
+
+  @OneToMany(() => Review, (review) => review.reviewedEmployee)
+  reviews: Review[]
+
   @Field(() => String)
   @CreateDateColumn({ type: 'date' })
   createdAt: Date 
@@ -17,10 +24,4 @@ export class Employee extends BaseEntity {
   @UpdateDateColumn({ type: 'date' })
   updatedAt: Date = new Date()
 
-  @Field()
-  @Column({ type: 'text'})
-  name!: string;
-
-  @OneToMany(() => Review, (review) => review.reviewedEmployee, { eager: true })
-  reviews: Review[]
 }

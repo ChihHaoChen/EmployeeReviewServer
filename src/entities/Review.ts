@@ -9,20 +9,12 @@ export class Review extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Field(() => String)
-  @CreateDateColumn({ type: 'date' })
-  createdAt: Date 
-
-  @Field(() => String)
-  @UpdateDateColumn({ type: 'date' })
-  updatedAt: Date = new Date()
-
   @Field()
   @Column()
-  reviewedBy: number
+  reviewedBy: string
 
   @Field()
-  @Column()
+  @Column({ type: "int", default: 0 })
   rating: number
   
   @Field()
@@ -33,6 +25,18 @@ export class Review extends BaseEntity {
   @Column({ default: false })
   isCompleted: boolean
 
+  @Field()
+  @Column()
+  reviewedEmployeeId: number
+
   @ManyToOne(() => Employee, (employee) => employee.reviews)
   reviewedEmployee: Employee
+
+  @Field(() => String)
+  @CreateDateColumn({ type: 'date' })
+  createdAt: Date 
+
+  @Field(() => String)
+  @UpdateDateColumn({ type: 'date' })
+  updatedAt: Date = new Date()
 }

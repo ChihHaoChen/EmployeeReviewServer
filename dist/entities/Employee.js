@@ -25,6 +25,15 @@ __decorate([
     __metadata("design:type", Number)
 ], Employee.prototype, "id", void 0);
 __decorate([
+    (0, type_graphql_1.Field)(),
+    (0, typeorm_1.Column)({ type: 'text' }),
+    __metadata("design:type", String)
+], Employee.prototype, "name", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => Review_1.Review, (review) => review.reviewedEmployee),
+    __metadata("design:type", Array)
+], Employee.prototype, "reviews", void 0);
+__decorate([
     (0, type_graphql_1.Field)(() => String),
     (0, typeorm_1.CreateDateColumn)({ type: 'date' }),
     __metadata("design:type", Date)
@@ -34,15 +43,6 @@ __decorate([
     (0, typeorm_1.UpdateDateColumn)({ type: 'date' }),
     __metadata("design:type", Date)
 ], Employee.prototype, "updatedAt", void 0);
-__decorate([
-    (0, type_graphql_1.Field)(),
-    (0, typeorm_1.Column)({ type: 'text' }),
-    __metadata("design:type", String)
-], Employee.prototype, "name", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => Review_1.Review, (review) => review.reviewedEmployee, { eager: true }),
-    __metadata("design:type", Array)
-], Employee.prototype, "reviews", void 0);
 Employee = __decorate([
     (0, type_graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)()

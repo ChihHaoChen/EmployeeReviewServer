@@ -19,8 +19,12 @@ let SubmitReviewInput = class SubmitReviewInput {
 };
 __decorate([
     (0, type_graphql_1.Field)(),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], SubmitReviewInput.prototype, "reviewedBy", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(),
+    __metadata("design:type", Number)
+], SubmitReviewInput.prototype, "reviewedEmployeeId", void 0);
 __decorate([
     (0, type_graphql_1.Field)(),
     __metadata("design:type", String)
@@ -32,6 +36,23 @@ __decorate([
 SubmitReviewInput = __decorate([
     (0, type_graphql_1.InputType)()
 ], SubmitReviewInput);
+let ReviewAdminInput = class ReviewAdminInput {
+};
+__decorate([
+    (0, type_graphql_1.Field)(),
+    __metadata("design:type", Number)
+], ReviewAdminInput.prototype, "reviewedEmployeeId", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(),
+    __metadata("design:type", String)
+], ReviewAdminInput.prototype, "feedback", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(),
+    __metadata("design:type", Number)
+], ReviewAdminInput.prototype, "rating", void 0);
+ReviewAdminInput = __decorate([
+    (0, type_graphql_1.InputType)()
+], ReviewAdminInput);
 let FieldError = class FieldError {
 };
 __decorate([
@@ -62,8 +83,28 @@ let ReviewResolver = class ReviewResolver {
     async reviews() {
         return await Review_1.Review.find();
     }
-    async submitFeedback({ reviewedBy, feedback, rating }) {
-        const draftReview = await Review_1.Review.findOne({ where: { reviewedBy } });
+    async reviewsOfEmployee(id) {
+        const totalReviews = await Review_1.Review.find();
+        return totalReviews.filter((review) => review.reviewedEmployeeId === id);
+    }
+    async assignReview(reviewedBy, revieweeId) {
+        return Review_1.Review.create({
+            reviewedBy: reviewedBy,
+            reviewedEmployeeId: revieweeId,
+            feedback: ''
+        }).save();
+    }
+    async adminReview({ feedback, rating, reviewedEmployeeId }) {
+        return Review_1.Review.create({
+            reviewedBy: 'admin',
+            reviewedEmployeeId: reviewedEmployeeId,
+            isCompleted: true,
+            rating,
+            feedback
+        }).save();
+    }
+    async submitFeedback({ reviewedBy, feedback, rating, reviewedEmployeeId }) {
+        const draftReview = await Review_1.Review.findOne({ reviewedBy, reviewedEmployeeId });
         if (!draftReview) {
             return {
                 errors: [{
@@ -88,8 +129,30 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ReviewResolver.prototype, "reviews", null);
 __decorate([
+    (0, type_graphql_1.Query)(() => [Review_1.Review], { nullable: true }),
+    __param(0, (0, type_graphql_1.Arg)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], ReviewResolver.prototype, "reviewsOfEmployee", null);
+__decorate([
+    (0, type_graphql_1.Mutation)(() => Review_1.Review),
+    __param(0, (0, type_graphql_1.Arg)('reviewerName')),
+    __param(1, (0, type_graphql_1.Arg)('revieweeId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Number]),
+    __metadata("design:returntype", Promise)
+], ReviewResolver.prototype, "assignReview", null);
+__decorate([
+    (0, type_graphql_1.Mutation)(() => Review_1.Review),
+    __param(0, (0, type_graphql_1.Arg)('reviewAdminInput')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [ReviewAdminInput]),
+    __metadata("design:returntype", Promise)
+], ReviewResolver.prototype, "adminReview", null);
+__decorate([
     (0, type_graphql_1.Mutation)(() => ReviewResponse),
-    __param(0, (0, type_graphql_1.Arg)("submitInput")),
+    __param(0, (0, type_graphql_1.Arg)('submitInput')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [SubmitReviewInput]),
     __metadata("design:returntype", Promise)

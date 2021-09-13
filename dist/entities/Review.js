@@ -25,23 +25,13 @@ __decorate([
     __metadata("design:type", Number)
 ], Review.prototype, "id", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(() => String),
-    (0, typeorm_1.CreateDateColumn)({ type: 'date' }),
-    __metadata("design:type", Date)
-], Review.prototype, "createdAt", void 0);
-__decorate([
-    (0, type_graphql_1.Field)(() => String),
-    (0, typeorm_1.UpdateDateColumn)({ type: 'date' }),
-    __metadata("design:type", Date)
-], Review.prototype, "updatedAt", void 0);
-__decorate([
     (0, type_graphql_1.Field)(),
     (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], Review.prototype, "reviewedBy", void 0);
 __decorate([
     (0, type_graphql_1.Field)(),
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ type: "int", default: 0 }),
     __metadata("design:type", Number)
 ], Review.prototype, "rating", void 0);
 __decorate([
@@ -55,9 +45,24 @@ __decorate([
     __metadata("design:type", Boolean)
 ], Review.prototype, "isCompleted", void 0);
 __decorate([
+    (0, type_graphql_1.Field)(),
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Number)
+], Review.prototype, "reviewedEmployeeId", void 0);
+__decorate([
     (0, typeorm_1.ManyToOne)(() => Employee_1.Employee, (employee) => employee.reviews),
     __metadata("design:type", Employee_1.Employee)
 ], Review.prototype, "reviewedEmployee", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => String),
+    (0, typeorm_1.CreateDateColumn)({ type: 'date' }),
+    __metadata("design:type", Date)
+], Review.prototype, "createdAt", void 0);
+__decorate([
+    (0, type_graphql_1.Field)(() => String),
+    (0, typeorm_1.UpdateDateColumn)({ type: 'date' }),
+    __metadata("design:type", Date)
+], Review.prototype, "updatedAt", void 0);
 Review = __decorate([
     (0, type_graphql_1.ObjectType)(),
     (0, typeorm_1.Entity)()

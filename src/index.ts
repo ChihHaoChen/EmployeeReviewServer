@@ -21,6 +21,9 @@ const main = async () => {
     entities: [Employee, Review],
   })
 
+  // await Employee.delete({})
+  // await Review.delete({})
+
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
       resolvers: [EmployeeResolver, ReviewResolver],
@@ -44,9 +47,6 @@ const main = async () => {
     cors: false
   })
 
-  app.get('/', (_, res) => {
-    res.send('Gotcha!')
-  })
 
   app.listen(4000, () => {
     console.log('server starteD')

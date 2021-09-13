@@ -42,9 +42,6 @@ const main = async () => {
         app,
         cors: false
     });
-    app.get('/', (_, res) => {
-        res.send('Gotcha!');
-    });
     app.listen(4000, () => {
         console.log('server starteD');
     });
