@@ -17,8 +17,8 @@ const main = async () => {
     await (0, typeorm_1.createConnection)({
         type: 'postgres',
         database: 'employeeReviews',
-        username: 'jenson',
-        password: '0716',
+        username: 'postgres',
+        password: 'postgres',
         logging: true,
         synchronize: true,
         entities: [Employee_1.Employee, Review_1.Review],
