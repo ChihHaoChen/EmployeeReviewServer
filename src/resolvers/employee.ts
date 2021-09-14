@@ -54,27 +54,4 @@ export class EmployeeResolver  {
     
     return deletedEmployee
   }
-
-  // @Mutation(() => Review)
-  // async assignReview(
-  //   @Arg('reviewee', () => Int) revieweeId: number,
-  //   @Arg('reviewer', () => Int) reviewerId: number,
-    
-  // ): Promise<Review> {
-  //   const reviewer = await Employee.findOne(reviewerId)
-  //   const reviewee = await Employee.findOne(revieweeId)
-  //   const newReviewAssignment = Review.create({
-  //     reviewedBy: reviewer,
-  //     reviewedEmployee: reviewee,
-      
-  //   })
-  //   Object.assign(newReviewAssignment, {
-  //     feedback: {},
-  //     rating: 0
-  //   })
-  //   await newReviewAssignment.save()
-
-  //   return newReviewAssignment
-
-  // }
 }

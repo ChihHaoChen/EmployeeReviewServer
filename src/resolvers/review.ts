@@ -51,18 +51,12 @@ export class ReviewResolver  {
     return await Review.find()
   }
 
-  @Query(() => [Review], { nullable: true })
-  async reviewsOfEmployee(@Arg('id') id: number): Promise<Review[] | undefined> {
-    const totalReviews = await Review.find()
-    return totalReviews.filter((review) => review.reviewedEmployeeId === id)
-  }
-
   @Mutation(() => Review)
   async assignReview(
     @Arg('reviewerName') reviewedBy: string,
     @Arg('revieweeId') revieweeId: number
   ): Promise<Review> {
-    return Review.create({
+    return await Review.create({
       reviewedBy: reviewedBy,
       reviewedEmployeeId: revieweeId,
       feedback: ''
@@ -71,13 +65,22 @@ export class ReviewResolver  {
 
   @Mutation(() => Review)
   async adminReview(@Arg('reviewAdminInput') { feedback, rating, reviewedEmployeeId }: ReviewAdminInput): Promise<Review> {
-    return Review.create({
+    const existingAdminReview = await Review.findOne({ reviewedBy: 'admin', reviewedEmployeeId })
+    const inputState = {
       reviewedBy: 'admin',
       reviewedEmployeeId: reviewedEmployeeId,
       isCompleted: true,
       rating,
       feedback
-    }).save()
+    }
+    
+    if (existingAdminReview !== undefined) {
+      Object.assign(existingAdminReview, inputState)
+      await existingAdminReview.save()
+
+      return existingAdminReview
+    }
+    return await Review.create(inputState).save()
   }
 
   

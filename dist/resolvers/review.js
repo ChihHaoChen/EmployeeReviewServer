@@ -83,25 +83,28 @@ let ReviewResolver = class ReviewResolver {
     async reviews() {
         return await Review_1.Review.find();
     }
-    async reviewsOfEmployee(id) {
-        const totalReviews = await Review_1.Review.find();
-        return totalReviews.filter((review) => review.reviewedEmployeeId === id);
-    }
     async assignReview(reviewedBy, revieweeId) {
-        return Review_1.Review.create({
+        return await Review_1.Review.create({
             reviewedBy: reviewedBy,
             reviewedEmployeeId: revieweeId,
             feedback: ''
         }).save();
     }
     async adminReview({ feedback, rating, reviewedEmployeeId }) {
-        return Review_1.Review.create({
+        const existingAdminReview = await Review_1.Review.findOne({ reviewedBy: 'admin', reviewedEmployeeId });
+        const inputState = {
             reviewedBy: 'admin',
             reviewedEmployeeId: reviewedEmployeeId,
             isCompleted: true,
             rating,
             feedback
-        }).save();
+        };
+        if (existingAdminReview !== undefined) {
+            Object.assign(existingAdminReview, inputState);
+            await existingAdminReview.save();
+            return existingAdminReview;
+        }
+        return await Review_1.Review.create(inputState).save();
     }
     async submitFeedback({ reviewedBy, feedback, rating, reviewedEmployeeId }) {
         const draftReview = await Review_1.Review.findOne({ reviewedBy, reviewedEmployeeId });
@@ -128,13 +131,6 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], ReviewResolver.prototype, "reviews", null);
-__decorate([
-    (0, type_graphql_1.Query)(() => [Review_1.Review], { nullable: true }),
-    __param(0, (0, type_graphql_1.Arg)('id')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", Promise)
-], ReviewResolver.prototype, "reviewsOfEmployee", null);
 __decorate([
     (0, type_graphql_1.Mutation)(() => Review_1.Review),
     __param(0, (0, type_graphql_1.Arg)('reviewerName')),
