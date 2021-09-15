@@ -1,8 +1,6 @@
 import { Review } from "../entities/Review";
-import { Arg, Field, FieldResolver, InputType, Mutation, ObjectType, Query, Resolver, ResolverInterface, Root } from "type-graphql";
+import { Arg, Field, FieldResolver, InputType, Mutation, ObjectType, Query, Resolver, Root } from "type-graphql";
 import { Employee } from "../entities/Employee"
-// import { isAdmin } from "../middleware/isAdmin";
-// import { Employee } from "src/entities/Employee"
 
 
 @InputType()
@@ -68,14 +66,18 @@ export class ReviewResolver  {
       })
     
     if (unfinishedReview !== undefined) return
-
-    // const reviewedCandidate = await Employee.findOne({ id: revieweeId })
     
     return await Review.create({
       reviewedBy: reviewedBy,
       reviewedEmployeeId: revieweeId,
       feedback: ''
     }).save()
+  }
+
+  @Mutation(() => Review)
+  async deleteReview(@Arg('reviewedEmployeeId') revieweeId: number): Promise<void> {
+    const reviewsLinkedToDeletedReviewee = await Review.find({ where: { reviewedEmployeeId: revieweeId } })
+    reviewsLinkedToDeletedReviewee.map(review => Review.delete(review))
   }
 
   @Mutation(() => Review)

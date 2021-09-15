@@ -100,6 +100,10 @@ let ReviewResolver = class ReviewResolver {
             feedback: ''
         }).save();
     }
+    async deleteReview(revieweeId) {
+        const reviewsLinkedToDeletedReviewee = await Review_1.Review.find({ where: { reviewedEmployeeId: revieweeId } });
+        reviewsLinkedToDeletedReviewee.map(review => Review_1.Review.delete(review));
+    }
     async adminReview({ feedback, rating, reviewedEmployeeId }) {
         const existingAdminReview = await Review_1.Review.findOne({ reviewedBy: 'admin', reviewedEmployeeId });
         const inputState = {
@@ -156,6 +160,13 @@ __decorate([
     __metadata("design:paramtypes", [String, Number]),
     __metadata("design:returntype", Promise)
 ], ReviewResolver.prototype, "assignReview", null);
+__decorate([
+    (0, type_graphql_1.Mutation)(() => Review_1.Review),
+    __param(0, (0, type_graphql_1.Arg)('reviewedEmployeeId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], ReviewResolver.prototype, "deleteReview", null);
 __decorate([
     (0, type_graphql_1.Mutation)(() => Review_1.Review),
     __param(0, (0, type_graphql_1.Arg)('reviewAdminInput')),
