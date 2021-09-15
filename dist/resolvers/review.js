@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReviewResolver = void 0;
 const Review_1 = require("../entities/Review");
 const type_graphql_1 = require("type-graphql");
+const Employee_1 = require("../entities/Employee");
 let SubmitReviewInput = class SubmitReviewInput {
 };
 __decorate([
@@ -83,7 +84,16 @@ let ReviewResolver = class ReviewResolver {
     async reviews() {
         return await Review_1.Review.find();
     }
+    async reviewedEmployee(review) {
+        return await Employee_1.Employee.findOne({ id: review.reviewedEmployeeId });
+    }
     async assignReview(reviewedBy, revieweeId) {
+        const unfinishedReview = await Review_1.Review.findOne({
+            where: { reviewedBy, reviewedEmployeeId: revieweeId, isCompleted: false },
+            relations: ['reviewedEmployee']
+        });
+        if (unfinishedReview !== undefined)
+            return;
         return await Review_1.Review.create({
             reviewedBy: reviewedBy,
             reviewedEmployeeId: revieweeId,
@@ -132,6 +142,13 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ReviewResolver.prototype, "reviews", null);
 __decorate([
+    (0, type_graphql_1.FieldResolver)(() => Employee_1.Employee),
+    __param(0, (0, type_graphql_1.Root)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Review_1.Review]),
+    __metadata("design:returntype", Promise)
+], ReviewResolver.prototype, "reviewedEmployee", null);
+__decorate([
     (0, type_graphql_1.Mutation)(() => Review_1.Review),
     __param(0, (0, type_graphql_1.Arg)('reviewerName')),
     __param(1, (0, type_graphql_1.Arg)('revieweeId')),
@@ -154,7 +171,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ReviewResolver.prototype, "submitFeedback", null);
 ReviewResolver = __decorate([
-    (0, type_graphql_1.Resolver)()
+    (0, type_graphql_1.Resolver)(() => Review_1.Review)
 ], ReviewResolver);
 exports.ReviewResolver = ReviewResolver;
 //# sourceMappingURL=review.js.map

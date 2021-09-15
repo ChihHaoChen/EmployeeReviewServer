@@ -2,7 +2,7 @@ import { Employee } from "../entities/Employee";
 import { Arg, Int, Mutation, Query, Resolver } from "type-graphql";
 // import { Review } from "../entities/Review";
 
-@Resolver()
+@Resolver(() => Employee)
 export class EmployeeResolver  {
   // Views all employees
   @Query(() => [Employee])

@@ -79,7 +79,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], EmployeeResolver.prototype, "deleteEmployee", null);
 EmployeeResolver = __decorate([
-    (0, type_graphql_1.Resolver)()
+    (0, type_graphql_1.Resolver)(() => Employee_1.Employee)
 ], EmployeeResolver);
 exports.EmployeeResolver = EmployeeResolver;
 //# sourceMappingURL=employee.js.map

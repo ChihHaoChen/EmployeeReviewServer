@@ -14,13 +14,14 @@ const main = async () => {
   await createConnection({
     type: 'postgres',
     database: 'employeeReviews',
-    username: 'postgres',
-    password: 'postgres',
+    username: 'jenson',
+    password: '0716',
     logging: true,
     synchronize: true,
     entities: [Employee, Review],
   })
 
+  /* Commands to clear the related database */
   // await Employee.delete({})
   // await Review.delete({})
 

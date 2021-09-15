@@ -30,7 +30,7 @@ __decorate([
     __metadata("design:type", String)
 ], Employee.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => Review_1.Review, (review) => review.reviewedEmployee),
+    (0, typeorm_1.OneToMany)(() => Review_1.Review, (review) => review.reviewedEmployee, { eager: true }),
     __metadata("design:type", Array)
 ], Employee.prototype, "reviews", void 0);
 __decorate([

@@ -1,4 +1,4 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { Field, ObjectType } from 'type-graphql';
 import { Employee } from './Employee'
 
@@ -29,7 +29,9 @@ export class Review extends BaseEntity {
   @Column()
   reviewedEmployeeId: number
 
-  @ManyToOne(() => Employee, (employee) => employee.reviews)
+  @ManyToOne(() => Employee, (employee: Employee) => employee.reviews)
+  @Field(() => Employee)
+  @JoinColumn({ name: 'reviewedEmployeeId', referencedColumnName: 'id' })
   reviewedEmployee: Employee
 
   @Field(() => String)

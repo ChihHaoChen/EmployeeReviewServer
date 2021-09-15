@@ -13,7 +13,7 @@ export class Employee extends BaseEntity {
   @Column({ type: 'text'})
   name!: string;
 
-  @OneToMany(() => Review, (review) => review.reviewedEmployee)
+  @OneToMany(() => Review, (review) => review.reviewedEmployee, { eager: true })
   reviews: Review[]
 
   @Field(() => String)

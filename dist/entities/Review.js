@@ -51,6 +51,8 @@ __decorate([
 ], Review.prototype, "reviewedEmployeeId", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => Employee_1.Employee, (employee) => employee.reviews),
+    (0, type_graphql_1.Field)(() => Employee_1.Employee),
+    (0, typeorm_1.JoinColumn)({ name: 'reviewedEmployeeId', referencedColumnName: 'id' }),
     __metadata("design:type", Employee_1.Employee)
 ], Review.prototype, "reviewedEmployee", void 0);
 __decorate([
