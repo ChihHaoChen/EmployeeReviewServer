@@ -40,5 +40,4 @@ yarn dev // To start the server
 
 ## Todo Item for Further Improvements
 
-- Refactoring is necessary for cleaner code, better readability, and modularization of code;
-- Urql ([https://formidable.com/open-source/urql/](https://formidable.com/open-source/urql/)) and its related libraries can be further studied and developed to allow SSR under the Next.js framework.
+- Refactoring is necessary for cleaner code, better readability, and modularization of code.
