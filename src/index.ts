@@ -14,8 +14,6 @@ const main = async () => {
   await createConnection({
     type: 'postgres',
     database: 'employeeReviews',
-    username: 'postgres',
-    password: 'postgres',
     logging: true,
     synchronize: true,
     entities: [Employee, Review],
@@ -50,7 +48,7 @@ const main = async () => {
 
 
   app.listen(4000, () => {
-    console.log('server starteD')
+    console.log('server started')
   })
 
 }

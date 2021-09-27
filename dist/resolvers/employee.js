@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var _a, _b, _c, _d, _e;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EmployeeResolver = void 0;
 const Employee_1 = require("../entities/Employee");
@@ -47,21 +48,21 @@ __decorate([
     (0, type_graphql_1.Query)(() => [Employee_1.Employee]),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", typeof (_a = typeof Promise !== "undefined" && Promise) === "function" ? _a : Object)
 ], EmployeeResolver.prototype, "employees", null);
 __decorate([
     (0, type_graphql_1.Query)(() => Employee_1.Employee, { nullable: true }),
     __param(0, (0, type_graphql_1.Arg)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", typeof (_b = typeof Promise !== "undefined" && Promise) === "function" ? _b : Object)
 ], EmployeeResolver.prototype, "employee", null);
 __decorate([
     (0, type_graphql_1.Mutation)(() => Employee_1.Employee),
     __param(0, (0, type_graphql_1.Arg)('name')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
 ], EmployeeResolver.prototype, "createEmployee", null);
 __decorate([
     (0, type_graphql_1.Mutation)(() => Employee_1.Employee, { nullable: true }),
@@ -69,14 +70,14 @@ __decorate([
     __param(1, (0, type_graphql_1.Arg)('name', () => String)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, String]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
 ], EmployeeResolver.prototype, "updateEmployee", null);
 __decorate([
     (0, type_graphql_1.Mutation)(() => Employee_1.Employee),
     __param(0, (0, type_graphql_1.Arg)('id', () => type_graphql_1.Int)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
 ], EmployeeResolver.prototype, "deleteEmployee", null);
 EmployeeResolver = __decorate([
     (0, type_graphql_1.Resolver)(() => Employee_1.Employee)

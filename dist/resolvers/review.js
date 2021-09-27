@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var _a, _b, _c, _d, _e, _f;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReviewResolver = void 0;
 const Review_1 = require("../entities/Review");
@@ -143,14 +144,14 @@ __decorate([
     (0, type_graphql_1.Query)(() => [Review_1.Review]),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", typeof (_a = typeof Promise !== "undefined" && Promise) === "function" ? _a : Object)
 ], ReviewResolver.prototype, "reviews", null);
 __decorate([
     (0, type_graphql_1.FieldResolver)(() => Employee_1.Employee),
     __param(0, (0, type_graphql_1.Root)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Review_1.Review]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", typeof (_b = typeof Promise !== "undefined" && Promise) === "function" ? _b : Object)
 ], ReviewResolver.prototype, "reviewedEmployee", null);
 __decorate([
     (0, type_graphql_1.Mutation)(() => Review_1.Review),
@@ -158,28 +159,28 @@ __decorate([
     __param(1, (0, type_graphql_1.Arg)('revieweeId')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Number]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
 ], ReviewResolver.prototype, "assignReview", null);
 __decorate([
     (0, type_graphql_1.Mutation)(() => Review_1.Review),
     __param(0, (0, type_graphql_1.Arg)('reviewedEmployeeId')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
 ], ReviewResolver.prototype, "deleteReview", null);
 __decorate([
     (0, type_graphql_1.Mutation)(() => Review_1.Review),
     __param(0, (0, type_graphql_1.Arg)('reviewAdminInput')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [ReviewAdminInput]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
 ], ReviewResolver.prototype, "adminReview", null);
 __decorate([
     (0, type_graphql_1.Mutation)(() => ReviewResponse),
     __param(0, (0, type_graphql_1.Arg)('submitInput')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [SubmitReviewInput]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
 ], ReviewResolver.prototype, "submitFeedback", null);
 ReviewResolver = __decorate([
     (0, type_graphql_1.Resolver)(() => Review_1.Review)

@@ -17,8 +17,6 @@ const main = async () => {
     await (0, typeorm_1.createConnection)({
         type: 'postgres',
         database: 'employeeReviews',
-        username: 'postgres',
-        password: 'postgres',
         logging: true,
         synchronize: true,
         entities: [Employee_1.Employee, Review_1.Review],
@@ -43,7 +41,7 @@ const main = async () => {
         cors: false
     });
     app.listen(4000, () => {
-        console.log('server starteD');
+        console.log('server started');
     });
 };
 main().catch(err => console.error(err));
