@@ -38,16 +38,7 @@ yarn watch  // To compile the ts files into js ones
 yarn dev // To start the server
 ```
 
-### Client Side (/web)
-
-```jsx
-yarn install // To install the used libraries
-yarn dev // To start the client side
-```
-
 ## Todo Item for Further Improvements
 
 - Refactoring is necessary for cleaner code, better readability, and modularization of code;
-- Global state statement or more modern state management libraries can be used to have a responsive frontend;
 - Urql ([https://formidable.com/open-source/urql/](https://formidable.com/open-source/urql/)) and its related libraries can be further studied and developed to allow SSR under the Next.js framework.
-- Better UI components and UI design, for instance, the employee card container to view the feedback can be collapsed or design in a carousel style for cleaner UI.
